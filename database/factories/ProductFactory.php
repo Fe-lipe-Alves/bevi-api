@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
             'price' => $this->faker->numberBetween(1000, 10000),
-            'status' => $this->faker->numberBetween(0, 1),
+            'status' => $this->faker->randomElement(StatusEnum::cases())->value,
             'stock_quantity' => $this->faker->numberBetween(0, 100),
         ];
     }

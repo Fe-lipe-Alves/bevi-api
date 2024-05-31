@@ -24,6 +24,7 @@ class Decimal implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return intval((float)($value*100));
+        $decimal = (float)($value*100);
+        return intval(number_format($decimal, 0, '.', ''));
     }
 }
