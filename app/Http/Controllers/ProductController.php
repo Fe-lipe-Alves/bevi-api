@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Interfaces\ProductControllerInterface;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductCollection;
@@ -9,7 +10,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 
-class ProductController extends Controller
+class ProductController extends Controller implements ProductControllerInterface
 {
     /**
      * Display a listing of the resource.
