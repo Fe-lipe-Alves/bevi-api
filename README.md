@@ -1,66 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Bevi API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto é uma API REST simples para cadastro de produtos.
+O intuito é apresentar meus conhecimentos técnicos desenvolvendo
+uma solução backend em PHP.
 
-## About Laravel
+Por se tratar de um teste, optei por utilizar alguns recursos
+que não são necessários em um projeto deste porte, mas vejo nisso
+a oportunidade de mostrar meus conhecimentos mais aprofundados.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+As tecnologias utilizadas neste projeto são:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel 11
+- PHP 8.3
+- MySQL 8.8
+- Docker com Laravel Sail
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Instalação
 
-## Learning Laravel
+Para instalar este projeto é preciso cloná-lo a partir do Github:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```shell
+git clone https://github.com/Fe-lipe-Alves/bevi-api.git
+cd bevi-api
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Após clonar, é preciso criar o arquivo `.env` a partir do
+`.env.example`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```shell
+cp .env.example .env
+```
 
-## Laravel Sponsors
+Este projeto utiliza o
+[Laravel Sail](https://laravel.com/docs/master/sail#main-content)
+para criar um ambiente de desenvolvimento rapidamente.O Laravel
+Sail irá baixar as imagens Docker para os serviços PHP e MySQL
+e iniciá-las corretamente.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Mas logo após clonar o projeto, a pasta `vendor` não existe,
+pois ainda não foi instalado os pacotes do Composer. E sem o
+pacote Laravel Sail, não temos o PHP e Composer que precisamos.
+Segundo a [documentação oficial](https://laravel.com/docs/11.x/sail#installing-composer-dependencies-for-existing-projects),
+podemos rodar este pequeno container Docker que irá baixar os
+pacotes Composer e montar o diretório *vendor*, assim
+conseguiremos chamar o Sail para iniciar a aplicação
+posteriormente.
+```shell
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Utilização
 
-## Contributing
+Para iniciar a API, você deve inicializar os containers Docker
+gerenciados pelo Laravel Sail. Execute o comando a seguir:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```shell
+./vendor/bin/sail up -d
+```
 
-## Code of Conduct
+API fica disponível em `localhost:80`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Para utilizar os endpoints desta API, você pode importar a
+coleção do Postman a seguir. Nesta coleção há requisições preparadas para
+todos os endpoints da API e uma documentação detalhada das
+requisições e respostas.
 
-## Security Vulnerabilities
+[Ir para a coleção Postman](https://www.postman.com/fe-lipe-alves/workspace/bevi-api/collection/10267895-9d6791d3-9819-43e0-a621-9dc3ade82803?action=share&creator=10267895)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Testes
 
-## License
+Os testes escritos cobrem 100% do controlador, modelo e as classes
+importantes para esta aplicação:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```shell
+./vendor/bin/sail artisan test --coverage
+```
+
+Há testes para cada ação do controlador: listar, cadastrar,
+editar, consultar e deletar. Ao todo são 8 testes e 53 afirmações
+que garantem a cobertura de testes necessária:
+
+```shell
+./vendor/bin/sail artisan test
+```
+
+## Notas sobre a aplicação
+
+Esta aplicação foi desenvolvida para atender a um teste da empresa
+Bevi, que consiste em uma API para realizar o CRUD de produtos.
+Devido à sua simplicidade, a solução não necessitaria comportar
+alguns recursos como
+[Cast Personalizado](https://laravel.com/docs/master/eloquent-mutators#custom-casts)
+de dados,
+[Validação de Formulário](https://laravel.com/docs/master/validation#form-request-validation)
+em vez de validação de manual e
+[Recurso de API](https://laravel.com/docs/master/eloquent-resources#main-content)
+para tratar respostas. Mesmo assim, os recursos foram aplicados
+para demonstrar o meu conhecimento em projetos de maior
+complexidade.
+
+Optei por utilizar o
+[Laravel Sail](https://laravel.com/docs/master/sail)
+para criar um ambiente de desenvolvimento Docker, pois é uma
+abordagem mais rápida para iniciar o desenvolvimento, enquanto
+contempla todos os recursos de que preciso.
+
